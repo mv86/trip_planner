@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "mocha specs"
+    "test": "mocha specs",
+    "start": "webpack -w"
   },
   "author": "",
   "license": "ISC",

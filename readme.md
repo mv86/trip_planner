@@ -23,17 +23,36 @@ Plan your holiday in Scotland with this app. Choose to visit Distilleries, Movie
   - Users can create a “road trip” of different cities and places to visit as they travel
 
 ##Installation instructions:
+  
+  Download repostiory or clone repostitory using git clone `https://github.com/mv86/trip_planner`
+
+  Download Node.js - install instructions [here](https://nodejs.org/en/download/)
+  
+  Download MongoDb - install instructions [here](https://docs.mongodb.com/manual/tutorial/)
 
   Need 3 terminals running:
 
     Terminal 1. - NPM
     > npm install 
+    > npm install express --save
+    > npm install --save-dev nodemon
+    > npm install body-parser
     > npm start
 
-    Terminal 2. - WEB PACK
-    > webpack -w
-
-    Terminal 3. - MONGO server
+    Terminal 2. - MONGO SERVER
     > npm install mongodb --save
-    > mongod
+    > mongod (macOS)
+    > sudo service mongod start (ubuntu)
+
+    Terminal 3. - WEB PACK
+    > cd client/
+    > npm install
+    > npm install webpack@1.14.0
+    > npm start
+
+    Terminal 4. - RUN TESTS
+    > cd client/
+    > npm install --save-dev mocha
+    > npm test ./src/organizer/specs/
+
 
