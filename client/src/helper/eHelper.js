@@ -1,15 +1,19 @@
 var eHelper = {
-createE: function( tag, innerText, value ) {
-  console.log(value);
-  let e = document.createElement( tag );
-  if (innerText) {
-    e.innerText = innerText;
-  } 
-  if (value !== undefined) {
-    e.value = value
-  }
-  return e;
-}
+
+	createE: function(tag, innerText, value) {
+		
+	  let e = document.createElement(tag);
+
+	  if (innerText) {
+	    e.innerText = innerText;
+	  }
+
+	  if (value !== undefined) {
+	    e.value = value
+	  }
+
+	  return e;
+	}
 
 };
 

@@ -24,7 +24,6 @@ Trip.prototype = {
     this.duration = Math.round((date2-date1)/(1000*60*60*24))
   },
   addActivity: function(id, activity) {
-    console.log(id)
     var url = "http://localhost:3000/trips/" + id.replace(/"/g, '');
     this.activities.push(activity);
     this.numberOfActivities ++;
@@ -32,7 +31,7 @@ Trip.prototype = {
     this.duration += activity.duration;
     this.budget -= activity.cost;
   ajaxHelper.makePutRequest(url, this)
-},
+  },
   removeActivity: function(id, activity) {
     var url = "http://localhost:3000/trips/" + id.replace(/"/g, '');
     var index = this.activities.indexOf(activity)
@@ -42,14 +41,13 @@ Trip.prototype = {
     this.duration -= activity.duration;
     this.budget += activity.cost;
   ajaxHelper.makePutRequest(url, this)
-},
+  },
   getNumberOfActivities: function() {
     this.numberOfActivities = this.activities.length;
   },
   getNumberOfActivitiesCompleted: function() {
     var total = 0;
-    for (var activity of this.activities)
-    {
+    for (var activity of this.activities) {
       if (activity.completed){ 
         total ++;
       }      
@@ -58,8 +56,7 @@ Trip.prototype = {
   },
   totalTripCost: function() {
     var total = 0;
-    for (var activity of this.activities)
-    {
+    for (var activity of this.activities) {
      total += activity.cost;
    }
    this.cost = total;
@@ -70,15 +67,16 @@ Trip.prototype = {
     this.inBudget = true;
   }
   return total;
-},
-checkCompleted: function() {
-  this.getNumberOfActivities();
-  if (this.numberOfActivities = this.getNumberOfActivitiesCompleted()){
-    this.completed = true;
-  };
-},
-getMiles: function() {
-  this.distanceMiles = this.distanceKm * 1.6;
-},
-}
+  },
+  checkCompleted: function() {
+    this.getNumberOfActivities();
+    if (this.numberOfActivities = this.getNumberOfActivitiesCompleted()){
+      this.completed = true;
+    };
+  },
+  getMiles: function() {
+    this.distanceMiles = this.distanceKm * 1.6;
+  },
+};
+
 module.exports = Trip;

@@ -30,29 +30,23 @@ Plan your holiday in Scotland with this app. Choose to visit Distilleries, Movie
   
   Download MongoDb - install instructions [here](https://docs.mongodb.com/manual/tutorial/)
 
-  Need 3 terminals running:
+  Need 4 terminals running:
 
     Terminal 1. - NPM
     > npm install 
-    > npm install express --save
-    > npm install --save-dev nodemon
-    > npm install body-parser
     > npm start
 
     Terminal 2. - MONGO SERVER
-    > npm install mongodb --save
     > mongod (macOS)
-    > sudo service mongod start (ubuntu)
+    > sudo service mongod start (Ubuntu)
 
     Terminal 3. - WEB PACK
     > cd client/
     > npm install
-    > npm install webpack@1.14.0
     > npm start
 
     Terminal 4. - RUN TESTS
     > cd client/
-    > npm install --save-dev mocha
-    > npm test ./src/organizer/specs/
+    > npm test
 
 

@@ -18,21 +18,25 @@ app.get('/', function (req, res) {
 });
 
 app.get('/trips', function(req,res) {
+
   MongoClient.connect(url, function(err, db) {
+
     var collection = db.collection('trips');
     collection.find({
       "user_name" : req.query.user_name
     }).toArray(function(err, docs) {
     collection.find({}).toArray(function(err, docs) {
+
       res.json(docs);
+      
       db.close();
     });
   });
 });
 });
 
+
 app.post('/trips', function(req,res) {
-  console.log('body', req.body);
 
   MongoClient.connect(url, function(err, db) {
     var collection = db.collection('trips');
@@ -56,27 +60,32 @@ app.post('/trips', function(req,res) {
       "distance_miles": 0
     }, function(err, newTrip){
       res.status(200).send(newTrip.insertedId);
-      console.log(newTrip);
       db.close();
     }
     );
   });
 });
 
+
 app.get('/trips/:id', function(req,res) {
+
   MongoClient.connect(url, function(err, db) {
+
     var collection = db.collection('trips');
     collection.findOne({_id: ObjectId(req.params.id)}, function(err, document) {
-      console.log(document.name);
+
       res.status(200).send(document);
+      
       db.close();
     });
   })
 })
 
+
 app.put('/trips/:id', function(req,res) {
-  console.log('body', req.body);
+
   MongoClient.connect(url, function(err, db) {
+
     var collection = db.collection('trips');
     collection.update(
       {"_id": new ObjectId(req.params.id)}, 
@@ -89,7 +98,9 @@ app.put('/trips/:id', function(req,res) {
           "budget": req.body.budget
         }
       });
+
     res.status(200).end();
+
     db.close();
   });
 });
@@ -100,5 +111,4 @@ app.use(express.static('client/build'));
 var server = app.listen(3000, function () {
   var host = server.address().address;
   var port = server.address().port;
-
 });

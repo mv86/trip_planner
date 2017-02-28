@@ -1,7 +1,7 @@
-var whisky = require('../api/whisky.js');
-var sports = require('../api/sports.js');
-var movies = require('../api/movies.js');
-var historic = require('../api/historic.js');
+var whisky = require('../seed/whisky.js');
+var sports = require('../seed/sports.js');
+var movies = require('../seed/movies.js');
+var historic = require('../seed/historic.js');
 var MapWrapper = require('./views/mapWrapper.js');
 var Organizer = require('./organizer/organizer.js');
 var Trip = require('./organizer/trip.js');
@@ -21,7 +21,6 @@ var app = function() {
 
     ajaxHelper.makeGetRequest("http://localhost:3000/trips?user_name=" + username, function(data) {
       var userExists = JSON.parse(data)
-      console.log(userExists)
       if(userExists.length >= 1) {
         containerIndex.style.visibility = 'hidden';
         containerDestination.style.visibility = 'hidden';
@@ -52,9 +51,11 @@ var organizer = new Organizer();
 var tripForm = document.querySelector('#trip-form');
 tripForm.onsubmit = function(e) {
   e.preventDefault();
+
       containerIndex.style.visibility = 'hidden';
       containerDestination.style.visibility = 'visible';
       containerItinerary.style.visibility = 'hidden';
+
       var tripData = {
         user_name: document.querySelector('#user-name').value,
         password: document.querySelector('#password').value,
@@ -65,7 +66,7 @@ tripForm.onsubmit = function(e) {
         end_date: document.querySelector('#end-date').value,
         start_end_point: document.querySelector('#start-end-point').value
       };
-      console.log(tripData)
+
       newTrip = new Trip(tripData);
       organizer.addTrip(newTrip);
 
@@ -81,16 +82,19 @@ tripForm.onsubmit = function(e) {
     var indexButton = document.getElementById('index-button');
     var destinationButton = document.getElementById('destination-button')
     var itineraryButton = document.getElementById('itinerary-button')
+
     indexButton.onclick = function() {
       containerIndex.style.visibility = 'visible';
       containerDestination.style.visibility = 'hidden';
       containerItinerary.style.visibility = 'hidden';
     }
+
     destinationButton.onclick = function() {
       containerIndex.style.visibility = 'hidden';
       containerDestination.style.visibility = 'visible';
       containerItinerary.style.visibility = 'hidden';
     }
+
     itineraryButton.onclick = function() {
       populateItinerary();
       containerIndex.style.visibility = 'hidden';
@@ -101,6 +105,7 @@ tripForm.onsubmit = function(e) {
     var whiskyButton = document.getElementById('distilleries');
     var whiskyActive = false;
     var iconDistillery = "images/distillery.png";
+
     whiskyButton.onclick = function() {
       if (whiskyActive) {
         whiskyActive = false;
@@ -115,6 +120,7 @@ tripForm.onsubmit = function(e) {
     var sportsButton = document.getElementById('sports');
     var sportsActive = false;
     var iconSport = "images/sport.png";
+
     sportsButton.onclick = function() {
       if (sportsActive) {
         sportsActive = false;
@@ -171,10 +177,11 @@ tripForm.onsubmit = function(e) {
         var destination = document.createElement('li');
         var viewButton = document.createElement('button');
         var addButton = document.createElement('button');
+
         viewButton.innerHTML = 'view';
         addButton.innerHTML = 'add to trip';
         addButton.id = 'add-button';
-        console.log(addButton.value)
+
         viewButton.addEventListener ("click", function() {
           var description = document.getElementById('description');
           var image = document.createElement('img');
@@ -187,6 +194,7 @@ tripForm.onsubmit = function(e) {
           newMap.clearMarkers();
           newMap.addMarker({lat: item.lat, lng: item.lng}, item.name, item.cost, item.duration, iconImage);
         });
+
         addButton.addEventListener ("click", function() {
           if (this.innerHTML === "add to trip") {
             this.innerHTML = "remove from trip"
@@ -196,6 +204,7 @@ tripForm.onsubmit = function(e) {
             newTrip.removeActivity(_id, item)
           }
         })
+
         destination.innerText = item.name +', ' + item.location;
         list.appendChild(destination);
         list.appendChild(viewButton);
@@ -257,11 +266,13 @@ tripForm.onsubmit = function(e) {
  directionsDisplay.setMap(itineraryMap.map);
 
  directionsService.route(request, function(response, status) {
+
    if (status == 'OK') {
+
      directionsDisplay.setDirections(response);
      var route = response.routes[0];
-     console.log('trip', trip);
      var routeDescription = document.getElementById('route-description'); 
+
      for (var i = 0; i < route.legs.length; i++) {
        var routeSegment = i + 1;
        routeDescription.innerHTML += 'Part ' + routeSegment + '<br>';

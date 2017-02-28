@@ -30,24 +30,12 @@ MapWrapper.prototype = {
       this.markers[i].setMap(map);
     }
   },
-  setMapOnAllItinerary: function(map) {
-    for (var i = 0; i < this.itineraryMarkers.length; i++) {
-      this.itineraryMarkers[i].setMap(map);
-    }
-  },
   clearMarkers: function() {
     this.setMapOnAll(null);
-  },
-  clearItineraryMarkers: function() {
-    this.setMapOnAllItinerary(null);
   },
   deleteMarkers: function() {
     this.clearMarkers();
     this.markers = [];
-  },
-  deleteItineraryMarkers: function() {
-    this.clearItineraryMarkers();
-    this.itineraryMarkers = [];
   },
   addItineraryMarker: function(coords, name) {
     var marker = new google.maps.Marker({
@@ -62,8 +50,20 @@ MapWrapper.prototype = {
       infowindow.open(this, marker);
     })
     this.itineraryMarkers.push(marker);
+  },
+  setMapOnAllItinerary: function(map) {
+    for (var i = 0; i < this.itineraryMarkers.length; i++) {
+      this.itineraryMarkers[i].setMap(map);
+    }
+  },
+  clearItineraryMarkers: function() {
+    this.setMapOnAllItinerary(null);
+  },
+  deleteItineraryMarkers: function() {
+    this.clearItineraryMarkers();
+    this.itineraryMarkers = [];
   }
 
-}
+};
 
 module.exports = MapWrapper;
